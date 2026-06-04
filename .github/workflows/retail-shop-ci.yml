@@ -24,7 +24,12 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::927749346049:role/github-actions-dev-role
           aws-region: ${{ env.AWS_REGION }}
-      
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.0" # Specify the version you want to use
+          
       - name: Init and validate Terraform
         run: |
           terraform init
