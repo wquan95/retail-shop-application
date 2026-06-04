@@ -3,6 +3,10 @@ name: Init, validate, plan and apply VPC/EKS
 on:
   push:
     branches: [ "main" ]
+    
+permissions:
+  id-token: write # Needed for OIDC
+  contents: write # Needed to push commits
 
 env:
   AWS_REGION: us-east-1
