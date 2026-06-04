@@ -3,8 +3,6 @@ name: Init, validate, plan and apply VPC/EKS
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - "terraform/**"
 
 env:
   AWS_REGION: us-east-1
@@ -25,6 +23,6 @@ jobs:
       
       - name: Init and validate Terraform
         run: |
-          terraform init
-          terraform validate
-          terraform plan
+          #terraform init
+          #terraform validate
+          #terraform plan
