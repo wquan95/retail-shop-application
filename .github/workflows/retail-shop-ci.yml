@@ -1,17 +1,24 @@
-name: Hello World
-on: 
+name: Init, validate, plan and apply VPC/EKS
+
+on:
   push:
-    branches:
-      - main
-      - develop
-      - 'release/**'
-  pull_request:
-    branches:
-      - main
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Step
-        run: echo "Hello, ${{vars.APP_NAME}}!"
+    branches: [ "main" ]
+    paths:
+      - "terraform/**"
+
+env:
+  AWS_REGION: us-east-1
   
+jobs:
+   build-and-push-ui:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::927749346049:user/weiquanlee95
+          aws-region: ${{ env.AWS_REGION }}
