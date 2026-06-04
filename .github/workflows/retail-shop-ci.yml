@@ -24,8 +24,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       
       - name: Init and validate Terraform
-        uses: hashicorp/terraform-github-actions@v2
         run: |
-         terraform init
-         terraform validate
-         terraform plan
+          terraform init
+          terraform validate
+          terraform plan
