@@ -27,6 +27,6 @@ jobs:
       
       - name: Init and validate Terraform
         run: |
-          #terraform init
-          #terraform validate
-          #terraform plan
+          terraform init
+          terraform validate
+          terraform plan
