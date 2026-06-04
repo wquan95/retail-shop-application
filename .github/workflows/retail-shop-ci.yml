@@ -28,7 +28,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.7.0" # Specify the version you want to use
+          terraform_version: "1.8.5" # Specify the version you want to use
 
       - name: Init and validate Terraform
         working-directory: ./terraform/vpc
