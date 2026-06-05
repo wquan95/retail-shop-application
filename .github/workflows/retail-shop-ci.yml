@@ -1,8 +1,19 @@
-name: Init, validate, plan and apply VPC/EKS
+name: Apply VPC
 
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Choose Terraform action to run'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+          - destrop
     
 permissions:
   id-token: write # Needed for OIDC
@@ -31,8 +42,22 @@ jobs:
           terraform_version: "1.9.0" # Specify the version you want to use
 
       - name: Init and validate Terraform
+        if: github.event.inputs.action == 'plan' || github.event.inputs.action == 'approve'
         working-directory: ./terraform/vpc
         run: |
           terraform init
           terraform validate
           terraform plan
+          
+      - name: Apply Terraform
+        if: github.event.inputs.action == 'approve'
+        working-directory: ./terraform/vpc
+        run: |
+          terraform apply -auto-aprove
+
+      - name: Destroy Terraform
+        if: github.event.inputs.action == 'destroy'
+        working-directory: ./terraform/vpc
+        run: |
+          terraform destroy -auto-aprove
+      
